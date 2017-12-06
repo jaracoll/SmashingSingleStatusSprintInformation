@@ -1,0 +1,36 @@
+// light grey theme
+$background-color: #176961;
+$board-color:      rgba(255, 255, 255, 0.7);
+
+$meter-background:  darken($background-color, 15%);
+
+.widget-jira-sprint-issue-status {
+  background-color: $background-color;
+
+  .board {
+    color: $board-color;
+  }
+
+  div.parentDiv {
+    text-align: center;
+    width: 100%; 
+  }
+
+  div.leftDiv {
+    text-align: center;
+    width: 50%;
+    float: left;
+    text-shadow: 3px 2px gray;
+  }
+
+  div.rightDiv {
+    text-align: center;
+    width: 50%;
+    float: right;
+    text-shadow: 3px 2px gray;
+  }
+
+  div.graphic {
+    padding-top: 5px;
+  }
+}
