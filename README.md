@@ -2,6 +2,10 @@
 
 Smashing widget to view the information of a sprint status
 
+## Preview
+
+![board](https://user-images.githubusercontent.com/19978733/33692296-e3fdac34-daec-11e7-9cc9-aaa705ca1f75.png)
+
 ## Usage
 
 To use the widget place the files in your smashing project accordingly to the repository folders structure.
