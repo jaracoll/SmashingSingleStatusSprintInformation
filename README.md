@@ -18,7 +18,7 @@ To include the widget in a dashboard, add the following snippet to the dashboard
 </li>
 ```
 
-Check the configuration section to know the id you should use.
+Check the 'Settings' section to know the id you should use.
 
 ## Settings
 
@@ -27,5 +27,5 @@ You should set up the following parameters inside the job file (jira_sprint_issu
 * STORY_POINTS_CUSTOMFIELD_CODE: The code of the customfield for the story points of the issue
 * BOARD_ID: The identifier of the board to obtain the active sprint
 * JIRA_AUTH: Credentials for using Jira
-* SPRINT_STATUSES: Complex object to define the different statuses used in your sprint
+* SPRINT_STATUSES: Complex object to define the different statuses used in your sprint. In this complex object you can find the available names for the dashboard identifiers.
   * statusid: Your Jira status identifier for the current srpint status
