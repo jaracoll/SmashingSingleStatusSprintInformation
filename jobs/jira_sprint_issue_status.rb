@@ -5,8 +5,8 @@ require 'json'
 require 'time'
 
 JIRA_URI = URI.parse("jira_url")
-STORY_POINTS_CUSTOMFIELD_CODE = 'customfield_10152'
-BOARD_ID = 2311
+STORY_POINTS_CUSTOMFIELD_CODE = 'customfield_XXXXX'
+BOARD_ID = XXXX
 
 SPRINT_STATUSES = {
   'singleStatusTodo' => {
