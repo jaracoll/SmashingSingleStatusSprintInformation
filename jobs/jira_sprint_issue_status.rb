@@ -4,10 +4,15 @@ require 'net/http'
 require 'json'
 require 'time'
 
-JIRA_URI = URI.parse("jira_url")
-STORY_POINTS_CUSTOMFIELD_CODE = 'customfield_XXXXX'
-BOARD_ID = XXXX
+# Loads configuration file
+config = YAML.load_file('config.yml')
+USERNAME = config['jira']['username']
+PASSWORD = config['jira']['password']
+JIRA_URI = config['jira']['url']
+STORY_POINTS_CUSTOMFIELD_CODE = config['jira']['customfield']['storypoints']
+VIEW_ID = config['jira']['view']
 
+SPECIAL_STATUS_REOPENED = '6'
 SPRINT_STATUSES = {
   'singleStatusTodo' => {
     'code' => 1,
@@ -36,11 +41,6 @@ SPRINT_STATUSES = {
   }
 }
 
-JIRA_AUTH = {
-  'name' => 'username',
-  'password' => '***'
-}
-
 # gets the view for a given view id
 def get_view_for_viewid(view_id)
   http = create_http
@@ -67,14 +67,6 @@ def get_active_sprint_for_view(view_id)
   end
 end
 
-# gets the remaining days for the sprint
-def get_remaining_days(view_id, sprint_id)
-  http = create_http
-  request = create_request("/rest/greenhopper/1.0/gadgets/sprints/remainingdays?rapidViewId=#{view_id}&sprintId=#{sprint_id}")
-  response = http.request(request)
-  JSON.parse(response.body)
-end
-
 # gets issues in each status
 def get_issues_per_status(view_id, sprint_id, issue_count_array, issue_sp_count_array)
   current_start_at = 0
@@ -95,7 +87,7 @@ end
 # accumulate issue information
 def accumulate_issue_information(issue, issue_count_array, issue_sp_count_array)
   case issue['fields']['status']['id']
-  when SPRINT_STATUSES['single_status_todo']['statusid']
+  when SPRINT_STATUSES['single_status_todo']['statusid'], SPECIAL_STATUS_REOPENED
     if !issue['fields']['issuetype']['subtask']
       issue_count_array[0] = issue_count_array[0] + 1
     end
@@ -153,8 +145,8 @@ end
 # create HTTP request for given path
 def create_request(path)
   request = Net::HTTP::Get.new(JIRA_URI.path + path)
-  if JIRA_AUTH['name']
-    request.basic_auth(JIRA_AUTH['name'], JIRA_AUTH['password'])
+  if USERNAME
+    request.basic_auth(USERNAME, PASSWORD)
   end
   return request
 end
@@ -168,12 +160,12 @@ def get_response(path)
   return response
 end
 
-SCHEDULER.every '1h', :first_in => 0 do |id|
+SCHEDULER.every '1h', :first_in => 0 do
   # Last position is for the accumulated values
   issue_count_array = Array.new(6, 0)
   issue_sp_count_array = Array.new(6, 0)
 
-  view_json = get_view_for_viewid(BOARD_ID)
+  view_json = get_view_for_viewid(VIEW_ID)
   if (view_json)
     sprint_json = get_active_sprint_for_view(view_json['id'])
     if (sprint_json)
