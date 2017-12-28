@@ -14,30 +14,30 @@ VIEW_ID = config['jira']['view']
 
 SPECIAL_STATUS_REOPENED = '6'
 SPRINT_STATUSES = {
-  'singleStatusTodo' => {
-    'code' => 1,
-    'name' => 'To do',
-    'statusid' => '1'
+  'single_status_todo' => {
+      'code' => 1,
+      'name' => 'To do',
+      'statusid' => '1'
   },
-  'singleStatusProgress' => {
-    'code' => 2,
-    'name' => 'In progress',
-    'statusid' => '2'
+  'single_status_progress' => {
+      'code' => 2,
+      'name' => 'In progress',
+      'statusid' => '2'
   },
-  'singleStatusReview' => {
-    'code' => 3,
-    'name' => 'In review',
-    'statusid' => '3'
+  'single_status_review' => {
+      'code' => 3,
+      'name' => 'In review',
+      'statusid' => '3'
   },
-  'singleStatusTest' => {
-    'code' => 4,
-    'name' => 'In test',
-    'statusid' => '4'
+  'single_status_test' => {
+      'code' => 4,
+      'name' => 'In test',
+      'statusid' => '4'
   },
-  'singleStatusDone' => {
-    'code' => 5,
-    'name' => 'Done',
-    'statusid' => '5'
+  'single_status_done' => {
+      'code' => 5,
+      'name' => 'Done',
+      'statusid' => '5'
   }
 }
 
