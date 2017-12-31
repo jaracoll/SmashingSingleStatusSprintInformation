@@ -3,6 +3,7 @@
 require 'net/http'
 require 'json'
 require 'time'
+require 'yaml'
 
 # Loads configuration file
 config = YAML.load_file('config.yml')
